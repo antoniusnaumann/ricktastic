@@ -9,19 +9,29 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+class Item {
+  final String label;
+  final IconData icon;
+
+  const Item({required this.label, required this.icon});
+}
+
 class _HomeScreenState extends State<HomeScreen> {
   // TODO: Extract to Router
   var tab = 0;
+
+  final items = [
+    const Item(label: 'Characters', icon: Icons.person),
+    const Item(label: 'Episodes', icon: Icons.tv),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        backgroundColor: Colors.transparent,
-        foregroundColor: Theme.of(context).colorScheme.onSurface,
+        titleTextStyle: Theme.of(context).textTheme.titleMedium,
         elevation: 0,
-        titleTextStyle: Theme.of(context).typography.black.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         shape: Border(bottom: BorderSide(color: Theme.of(context).dividerColor, width: 1)),
       ),
       body: Center(
@@ -34,20 +44,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Characters'),
-          BottomNavigationBarItem(icon: Icon(Icons.tv), label: 'Episodes'),
-        ],
-        onTap: (tapped) => setState(() {
-          tab = tapped;
-        }),
-        currentIndex: tab,
-        selectedFontSize: 12.0,
-        unselectedFontSize: 12.0,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w700),
-        landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
-        elevation: 0,
+      bottomNavigationBar: FocusTraversalGroup(
+        child: BottomNavigationBar(
+          items: items.map((item) => BottomNavigationBarItem(icon: Icon(item.icon), label: item.label)).toList(),
+          onTap: (tapped) => setState(() {
+            tab = tapped;
+          }),
+          currentIndex: tab,
+          selectedFontSize: 12.0,
+          unselectedFontSize: 12.0,
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w700),
+          landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
+          elevation: 0,
+        ),
       ),
     );
   }
