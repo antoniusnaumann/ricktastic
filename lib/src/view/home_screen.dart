@@ -1,4 +1,7 @@
+
 import 'package:flutter/material.dart';
+import 'package:ricktastic/src/entity/character.dart';
+import 'package:ricktastic/src/service/rick_api_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.title}) : super(key: key);
@@ -17,8 +20,10 @@ class Item {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // TODO: Extract to Router
   var tab = 0;
+
+  // TODO: Move to bloc
+  Stream<List<Character>>? characters;
 
   final items = [
     const Item(label: 'Characters', icon: Icons.person),
@@ -34,16 +39,27 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         shape: Border(bottom: BorderSide(color: Theme.of(context).dividerColor, width: 1)),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'Hello Worrld',
+      body: [
+        Column(
+          children: [
+            OutlinedButton(
+              onPressed: () => setState(() { 
+                characters = RickApiService().fetchCharacters();
+              }),
+              child: const Text('Fetch characters'),
             ),
-          ],
+            StreamBuilder<List<Character>>(
+              stream: characters,
+              builder: (context, snapshot) {
+                return Column(
+                  children: snapshot.data?.map((character) => Text(character.name)).toList() ?? [],
+                );
+              },
+            ),
+          ]
         ),
-      ),
+        const Text('Your favorite episode'),
+      ][tab],
       bottomNavigationBar: FocusTraversalGroup(
         child: BottomNavigationBar(
           items: items.map((item) => BottomNavigationBarItem(icon: Icon(item.icon), label: item.label)).toList(),

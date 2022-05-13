@@ -9,11 +9,11 @@ class RicktasticApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Ricktastic',
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ThemeMode.system, 
-      home: const HomeScreen(title: 'Flutter Demo Home Page'),
+      home: const HomeScreen(title: 'Ricktastic'),
     );
   }
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 final lightTheme = ThemeData(
   brightness: Brightness.light,
-  primarySwatch: Colors.green,
+  useMaterial3: true,
+  colorSchemeSeed: Colors.green,
   splashColor: Colors.transparent,
   hoverColor: Colors.transparent,
   appBarTheme: const AppBarTheme(
@@ -13,7 +14,8 @@ final lightTheme = ThemeData(
 
 final darkTheme = ThemeData(
   brightness: Brightness.dark,
-  primarySwatch: Colors.green,
+  useMaterial3: true,
+  colorSchemeSeed: Colors.green,
   splashColor: Colors.transparent,
   hoverColor: Colors.transparent,
   appBarTheme: const AppBarTheme(
