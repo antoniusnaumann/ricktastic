@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ricktastic/src/bloc/characters_cubit.dart';
 import 'package:ricktastic/src/entity/character.dart';
+import 'package:ricktastic/src/view/character_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.title}) : super(key: key);
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocBuilder<CharactersCubit, CharactersState>(
           builder: (context, state) {
             return ListView(
-              children: state.characters.map((character) => Text(character?.name ?? 'Loading...')).toList(),
+              children: state.characters.map((character) => character != null ? CharacterCard(character) : const Text('Loading')).toList(),
             );
           }
         ),

@@ -17,7 +17,7 @@ class RicktasticApp extends StatelessWidget {
       themeMode: ThemeMode.system, 
       home: BlocProvider(
         create: (_) => CharactersCubit(),
-        child: HomeScreen(title: 'Ricktastic'),
+        child: const HomeScreen(title: 'Ricktastic'),
       ),
     );
   }
