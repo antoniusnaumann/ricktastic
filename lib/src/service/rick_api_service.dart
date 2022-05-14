@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:ricktastic/src/entity/character.dart';
 
@@ -19,19 +18,13 @@ class RickApiService {
 
     do {
       response = await get(Uri.parse(next));
-      // TODO: Typed serialization
       json = jsonDecode(response.body);
       meta = json['info'];
 
       yield Page(
         content: (json['results'] as List)
           .map((element) => element as Map<String, dynamic>)
-          .map((entry) => Character(
-            id: entry['id'], 
-            name: entry['name'], 
-            image: entry['image'],
-            url: entry['url'],
-            created: entry['created']))
+          .map((entry) => Character.fromJson(entry))
           .toList(),
         totalItems: meta['count']);
 
