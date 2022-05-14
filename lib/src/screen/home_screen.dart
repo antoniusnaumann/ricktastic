@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ricktastic/src/bloc/characters_cubit.dart';
 import 'package:ricktastic/src/entity/character.dart';
-import 'package:ricktastic/src/service/rick_api_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.title}) : super(key: key);
@@ -22,9 +23,6 @@ class Item {
 class _HomeScreenState extends State<HomeScreen> {
   var tab = 0;
 
-  // TODO: Move to bloc
-  Stream<List<Character>>? characters;
-
   final items = [
     const Item(label: 'Characters', icon: Icons.person),
     const Item(label: 'Episodes', icon: Icons.tv),
@@ -40,23 +38,12 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: Border(bottom: BorderSide(color: Theme.of(context).dividerColor, width: 1)),
       ),
       body: [
-        Column(
-          children: [
-            OutlinedButton(
-              onPressed: () => setState(() { 
-                characters = RickApiService().fetchCharacters();
-              }),
-              child: const Text('Fetch characters'),
-            ),
-            StreamBuilder<List<Character>>(
-              stream: characters,
-              builder: (context, snapshot) {
-                return Column(
-                  children: snapshot.data?.map((character) => Text(character.name)).toList() ?? [],
-                );
-              },
-            ),
-          ]
+        BlocBuilder<CharactersCubit, CharactersState>(
+          builder: (context, state) {
+            return ListView(
+              children: state.characters.map((character) => Text(character?.name ?? 'Loading...')).toList(),
+            );
+          }
         ),
         const Text('Your favorite episode'),
       ][tab],
