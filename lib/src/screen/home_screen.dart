@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocBuilder<CharactersCubit, CharactersState>(
           builder: (context, state) {
             return ListView(
-              children: state.characters.map((character) => character != null ? CharacterCard(character) : const Text('Loading')).toList(),
+              children: state.characters.map((character) => CharacterCard(character)).toList(),
             );
           }
         ),
