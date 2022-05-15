@@ -1,4 +1,5 @@
-
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ricktastic/src/bloc/characters_cubit.dart';
@@ -31,25 +32,35 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        titleTextStyle: Theme.of(context).textTheme.titleMedium,
-        elevation: 0,
-        shape: Border(bottom: BorderSide(color: Theme.of(context).dividerColor, width: 1)),
-      ),
       body: [
         BlocBuilder<CharactersCubit, CharactersState>(
           builder: (context, state) {
-            return ListView.builder(
-              itemBuilder: ((context, index) => CharacterCard(state.characters[index])),
-              itemCount: state.characters.length,
+            const width = 250.0;
+            final isApplePlatform = defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS;
+            final colors = Theme.of(context).colorScheme;
+            return NestedScrollView(
+              headerSliverBuilder: (_, __) => [
+                CupertinoSliverNavigationBar(
+                  largeTitle: Text("Ricktastic", style: TextStyle(color: isApplePlatform ? colors.onBackground : colors.onSecondaryContainer)),
+                  border: null, 
+                  brightness: Theme.of(context).brightness,
+                  backgroundColor: isApplePlatform ? colors.background.withAlpha(200) : colors.secondaryContainer,
+                ),
+              ],
+              body: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: width, childAspectRatio: 0.8),
+                padding: const EdgeInsets.all(4.0),
+                itemBuilder: (context, index) => CharacterCard(state.characters[index]),
+                itemCount: state.characters.length,
+              ),
             );
-          }
+          },
         ),
         const Text('Your favorite episode'),
       ][tab],
       bottomNavigationBar: FocusTraversalGroup(
         child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           items: items.map((item) => BottomNavigationBarItem(icon: Icon(item.icon), label: item.label)).toList(),
           onTap: (tapped) => setState(() {
             tab = tapped;
@@ -59,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
           unselectedFontSize: 12.0,
           selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w700),
           landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
-          elevation: 0,
+          elevation: 4,
         ),
       ),
     );
