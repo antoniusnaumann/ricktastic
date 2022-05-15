@@ -35,7 +35,7 @@ class CharacterCard extends StatelessWidget {
                 loadingBuilder: (context, child, progress) => progress == null ? child : Shimmer.fromColors(
                   baseColor: colors.secondaryContainer.withAlpha(50),
                   highlightColor: colors.secondaryContainer.withAlpha(150),
-                  child: Container(height: width, width: width, color: const Color(0xffffffff)),
+                  child: Container(height: imageHeight, width: width, color: const Color(0xffffffff)),
                 ),
                 errorBuilder: (context, _, trace) => Container(height: width, width: width, color: colors.errorContainer),
               ),
