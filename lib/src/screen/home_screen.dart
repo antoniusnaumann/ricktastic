@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ricktastic/src/bloc/characters_cubit.dart';
+import 'package:ricktastic/src/bloc/episodes_cubit.dart';
 import 'package:ricktastic/src/layout/adaptive_app_bar.dart';
 import 'package:ricktastic/src/view/character_card.dart';
 
@@ -30,11 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: (index) => setState(() {
         _tab = index;
       }),
-      body: [
+      body: <Widget>[
         BlocBuilder<CharactersCubit, CharactersState>(
-          builder: (context, state) => CharactersContent(title: super.widget.title, state: state)
+          builder: (context, state) => CharactersContent(title: super.widget.title, state: state),
         ),
-        Center(child: Text('Coming Soon!', style: Theme.of(context).typography.englishLike.displaySmall?.copyWith(fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onBackground))),
+        BlocBuilder<EpisodesCubit, EpisodesState>(
+          builder: (context, state) => EpisodesContent(title: super.widget.title, state: state),
+        ),
       ][_tab],
     );
   }
@@ -44,7 +47,7 @@ class CharactersContent extends StatelessWidget {
   final String title;
   final double itemWidth;
   final CharactersState state;
-  const CharactersContent({Key? key, required this.title, this.itemWidth = 250, required this.state}) : super(key: key);
+  const CharactersContent({super.key, required this.title, this.itemWidth = 250, required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -57,5 +60,16 @@ class CharactersContent extends StatelessWidget {
         itemCount: state.characters.length,
       ),
     );
+  }
+}
+
+class EpisodesContent extends StatelessWidget {
+  final String title;
+  final EpisodesState state;
+  const EpisodesContent({super.key, required this.title, required this.state});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(child: Text('Coming Soon!', style: Theme.of(context).typography.englishLike.displaySmall?.copyWith(fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onBackground)));
   }
 }
