@@ -1,5 +1,4 @@
 
-import 'dart:io';
 
 import 'package:ricktastic/src/entity/character.dart';
 import 'package:ricktastic/src/service/rick_api_service.dart';

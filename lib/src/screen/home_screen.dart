@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ricktastic/src/bloc/characters_cubit.dart';
+import 'package:ricktastic/src/layout/adaptive_app_bar.dart';
 import 'package:ricktastic/src/view/character_card.dart';
 
 import '../layout/rail_scaffold.dart';
@@ -33,40 +32,30 @@ class _HomeScreenState extends State<HomeScreen> {
       }),
       body: [
         BlocBuilder<CharactersCubit, CharactersState>(
-          builder: (context, state) {
-            const width = 250.0;
-            final isApplePlatform = (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS) && !kIsWeb;
-            final colors = Theme.of(context).colorScheme;
-            return NestedScrollView(
-              headerSliverBuilder: (_, __) => isApplePlatform ? [
-                CupertinoSliverNavigationBar(
-                  largeTitle: Text(super.widget.title, style: TextStyle(color: colors.onBackground)),
-                  border: null, 
-                  brightness: Theme.of(context).brightness,
-                  backgroundColor: colors.background.withAlpha(200),
-                ),
-              ] : kIsWeb ? [] : [
-                SliverAppBar(
-                  pinned: !kIsWeb,
-                  snap: false,
-                  floating: true,
-                  expandedHeight: 160.0,
-                  flexibleSpace: FlexibleSpaceBar(
-                    title: Text(super.widget.title, style: TextStyle(color: colors.onBackground)),
-                  ),
-                )
-              ],
-              body: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: width, childAspectRatio: 0.8),
-                padding: const EdgeInsets.all(4.0),
-                itemBuilder: (context, index) => CharacterCard(state.characters[index]),
-                itemCount: state.characters.length,
-              ),
-            );
-          },
+          builder: (context, state) => CharactersContent(title: super.widget.title, state: state)
         ),
         Center(child: Text('Coming Soon!', style: Theme.of(context).typography.englishLike.displaySmall?.copyWith(fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onBackground))),
       ][_tab],
+    );
+  }
+}
+
+class CharactersContent extends StatelessWidget {
+  final String title;
+  final double itemWidth;
+  final CharactersState state;
+  const CharactersContent({Key? key, required this.title, this.itemWidth = 250, required this.state}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AdaptiveAppBar(
+      title: title,
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: itemWidth, childAspectRatio: 0.8),
+        padding: const EdgeInsets.all(4.0),
+        itemBuilder: (context, index) => CharacterCard(state.characters[index]),
+        itemCount: state.characters.length,
+      ),
     );
   }
 }
