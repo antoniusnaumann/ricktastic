@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:ricktastic/src/bloc/characters_cubit.dart';
+import 'package:ricktastic/src/bloc/episodes_cubit.dart';
 import 'package:ricktastic/src/screen/home_screen.dart';
 import 'package:ricktastic/src/theme.dart';
 
@@ -46,17 +47,23 @@ void main() {
     await tester.tap(find.byIcon(Icons.tv));
     await tester.pump(const Duration(milliseconds: 10));
 
-    expect(find.text('Coming Soon!'), findsOneWidget);
+    // TODO: Look for content 
+    expect(find.text('Coming Soon!'), findsNothing);
   });
 }
 
-Widget setupApp() => MaterialApp(
-  title: 'Ricktastic',
-  theme: lightTheme,
-  darkTheme: darkTheme,
-  themeMode: ThemeMode.system, 
-  home: BlocProvider(
-    create: (_) => CharactersCubit(MockRickApiService()),
-    child: const HomeScreen(title: 'Ricktastic'),
-  ),
-);
+Widget setupApp() {
+  final service = MockRickApiService();
+  return MaterialApp(
+    title: 'Ricktastic',
+    theme: lightTheme,
+    darkTheme: darkTheme,
+    themeMode: ThemeMode.system, 
+    home: MultiBlocProvider(providers: [
+        BlocProvider(create: (_) => CharactersCubit(apiService: service)),
+        BlocProvider(create: (_) => EpisodesCubit(apiService: service)),
+      ],
+      child: const HomeScreen(title: 'Ricktastic'),
+    ),
+  );
+}

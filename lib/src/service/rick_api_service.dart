@@ -10,11 +10,11 @@ class RickApiService {
   const RickApiService();
 
   /// Returns a stream that emits a page of characters from the api
-  Stream<Page> fetchCharacters() async* {
+  Stream<Page<T>> fetch<T>(T Function(Map<String, dynamic> entry) fromJson, String urlKey) async* {
     Response response;
     dynamic json;
     dynamic meta;
-    var next = '$base/character';
+    var next = '$base/$urlKey';
 
     do {
       response = await get(Uri.parse(next));
@@ -24,7 +24,7 @@ class RickApiService {
       yield Page(
         content: (json['results'] as List)
           .map((element) => element as Map<String, dynamic>)
-          .map((entry) => Character.fromJson(entry))
+          .map((entry) => fromJson(entry))
           .toList(),
         totalItems: meta['count']);
 
@@ -33,8 +33,8 @@ class RickApiService {
   }
 }
 
-class Page {
-  final List<Character> content;
+class Page<T> {
+  final List<T> content;
   final int totalItems;
 
   Page({required this.content, required this.totalItems});

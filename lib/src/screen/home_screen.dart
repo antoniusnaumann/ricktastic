@@ -70,6 +70,12 @@ class EpisodesContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Coming Soon!', style: Theme.of(context).typography.englishLike.displaySmall?.copyWith(fontWeight: FontWeight.w700, color: Theme.of(context).colorScheme.onBackground)));
+    return AdaptiveAppBar(
+      title: title,
+      body: ListView.builder(
+        itemBuilder: (context, index) => Text('Episode $index'),
+        itemCount: 10,
+      ),
+    );
   }
 }

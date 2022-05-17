@@ -1,10 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import 'entity.dart';
+
 part 'character.g.dart';
 
 @JsonSerializable(explicitToJson: false)
-class Character {
-  final int id;
+class Character implements Entity {
+  @override final int id;
   final String name;
   final String? status;
   final String? species;

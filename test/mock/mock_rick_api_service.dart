@@ -1,5 +1,7 @@
 
 
+import 'dart:ffi';
+
 import 'package:ricktastic/src/entity/character.dart';
 import 'package:ricktastic/src/service/rick_api_service.dart';
 
@@ -8,15 +10,17 @@ class MockRickApiService implements RickApiService {
   String get base => throw UnimplementedError();
 
   @override
-  Stream<Page> fetchCharacters() async* {
+  Stream<Page<T>> fetch<T>(T Function(Map<String, dynamic> entry) fromJson, [String urlKey = '']) async* {
+    if (T != Character) return;
+    
     for (final page in mockCharacterPages) {
-      yield page;
+      yield page as Page<T>;
       // sleep(const Duration(milliseconds: 50));
     }
   }
 }
 
-final mockCharacterPages = List<Page>.generate(50, (page) {
+final mockCharacterPages = List<Page<Character>>.generate(50, (page) {
   const charsPerPage = 100;
   return Page(totalItems: charsPerPage * 50, content: List<Character>.generate(charsPerPage, (index) => Character(
     id: _idFromPage(page, index, charsPerPage),

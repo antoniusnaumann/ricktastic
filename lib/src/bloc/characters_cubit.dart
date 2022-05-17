@@ -1,35 +1,17 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ricktastic/src/bloc/entities_cubit.dart';
 import 'package:ricktastic/src/service/rick_api_service.dart';
 
 import '../entity/character.dart';
 
-class CharactersCubit extends Cubit<CharactersState> {
-  RickApiService apiService;
-  CharactersCubit([this.apiService = const RickApiService()]) : super(const CharactersState()) {
-    fetch();
-  }
-
-  void fetch() {
-    apiService
-      .fetchCharacters()
-      .forEach((page) {
-        final newState = state.characters.isEmpty 
-          ? CharactersState(List<Character?>.generate(page.totalItems, (index) => null))
-          : state;
-        emit(newState.combine(page.content));
-      });
-  }
+class CharactersCubit extends EntitiesCubit<Character, CharactersState> {
+  CharactersCubit({initialState = const CharactersState([]), RickApiService apiService = const RickApiService()}) : super(initialState, Character.fromJson, 'character', apiService);
 }
 
-class CharactersState {
-  final List<Character?> characters;
-  const CharactersState([this.characters = const <Character?>[]]);
+class CharactersState extends EntitiesState<Character, CharactersState> {
+  const CharactersState(super.entities);
 
-  CharactersState combine(List<Character> page) {
-    var list = characters;
-    for (var char in page) { list[char.id - 1] = char; }
-    return CharactersState(list);
-  }
-
-  bool get isEmpty => characters.isEmpty;
+  get characters => entities;
+  
+  @override
+  CharactersState construct(List<Character?> entities) => CharactersState(entities);
 }
