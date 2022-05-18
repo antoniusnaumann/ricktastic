@@ -28,4 +28,7 @@ class Episode implements Entity {
 
   factory Episode.fromJson(Map<String, dynamic> json) => _$EpisodeFromJson(json);
   Map<String, dynamic> toJson() => _$EpisodeToJson(this);
+
+  int? get season => int.tryParse(code.substring(1, 3));
+  int? get episode => int.tryParse(code.substring(4, 6));
 }

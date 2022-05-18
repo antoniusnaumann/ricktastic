@@ -4,6 +4,7 @@ import 'package:ricktastic/src/bloc/characters_cubit.dart';
 import 'package:ricktastic/src/bloc/episodes_cubit.dart';
 import 'package:ricktastic/src/layout/adaptive_app_bar.dart';
 import 'package:ricktastic/src/view/character_card.dart';
+import 'package:ricktastic/src/view/episode_item.dart';
 
 import '../layout/rail_scaffold.dart';
 
@@ -73,8 +74,8 @@ class EpisodesContent extends StatelessWidget {
     return AdaptiveAppBar(
       title: title,
       body: ListView.builder(
-        itemBuilder: (context, index) => Text('Episode $index'),
-        itemCount: 10,
+        itemBuilder: (context, index) => EpisodeItem(state.episodes[index]),
+        itemCount: state.entities.length,
       ),
     );
   }

@@ -10,7 +10,7 @@ class CharactersCubit extends EntitiesCubit<Character, CharactersState> {
 class CharactersState extends EntitiesState<Character, CharactersState> {
   const CharactersState(super.entities);
 
-  get characters => entities;
+  List<Character?> get characters => entities;
   
   @override
   CharactersState construct(List<Character?> entities) => CharactersState(entities);

@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ricktastic/src/bloc/entities_cubit.dart';
 import 'package:ricktastic/src/service/rick_api_service.dart';
 
@@ -11,7 +10,7 @@ class EpisodesCubit extends EntitiesCubit<Episode, EpisodesState> {
 class EpisodesState extends EntitiesState<Episode, EpisodesState> {
   const EpisodesState(super.entities);
 
-  get episodes => super.entities;
+  List<Episode?> get episodes => super.entities;
 
   @override
   EpisodesState construct(List<Episode?> entities) => EpisodesState(entities);
