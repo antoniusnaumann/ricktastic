@@ -19,8 +19,12 @@ abstract class EntitiesCubit<S extends Entity, T extends EntitiesState<S, T>> ex
         final newState = state.entities.isEmpty 
           ? state.construct(List<S?>.generate(page.totalItems, (index) => null))
           : state;
-        emit(newState.combine(page.content));
+        emit(newState.combine(transform(page.content)));
       });
+  }
+
+  List<S> transform(List<S> old) {
+    return old;
   }
 }
 

@@ -4,7 +4,10 @@ import 'package:ricktastic/src/service/rick_api_service.dart';
 import '../entity/character.dart';
 
 class CharactersCubit extends EntitiesCubit<Character, CharactersState> {
-  CharactersCubit({initialState = const CharactersState([]), RickApiService apiService = const RickApiService()}) : super(initialState, Character.fromJson, 'character', apiService);
+  CharactersCubit({
+    initialState = const CharactersState([]), 
+    RickApiService apiService = const RickApiService()
+  }) : super(initialState, Character.fromJson, 'character', apiService);
 }
 
 class CharactersState extends EntitiesState<Character, CharactersState> {
