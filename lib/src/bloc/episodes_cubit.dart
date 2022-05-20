@@ -13,7 +13,7 @@ class EpisodesCubit extends EntitiesCubit<Episode, EpisodesState> {
   String _lastWatched = ''; 
 
   @override
-  List<StateEpisode> transform(List<Episode> old) {
+  List<Episode> transform(List<Episode> old) {
     return old.map((episode) => episode.withState(EpisodeState(watched: episode.season! < 3))).toList();
   }
 }

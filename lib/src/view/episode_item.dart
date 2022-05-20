@@ -27,12 +27,12 @@ class EpisodeItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16),
             child: Opacity(
-              opacity: state?.watched == true ? 0.7 : 1.0,
+              opacity: state?.watched == true ? 0.5 : 1.0,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(episode?.name ?? 'Loading...', style: typography.titleMedium),
+                  Text(episode?.name ?? 'Loading...', style: typography.titleMedium?.copyWith(color: colors.onSurface)),
                   Text(seasonEpisode, style: typography.subtitle1?.copyWith(color: colors.outline)),
                 ],
               ),

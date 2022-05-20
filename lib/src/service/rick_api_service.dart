@@ -28,7 +28,7 @@ class RickApiService {
           .toList(),
         totalItems: meta['count']);
 
-      next = meta['next'];
+      next = meta['next'] ?? '';
     } while (next.isNotEmpty);
   }
 }
