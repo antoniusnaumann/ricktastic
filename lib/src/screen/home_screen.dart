@@ -71,10 +71,26 @@ class EpisodesContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return AdaptiveAppBar(
       title: title,
       body: ListView.builder(
-        itemBuilder: (context, index) => EpisodeItem(state.episodes[index]),
+        itemBuilder: (context, index) => Dismissible(
+          key: Key(index.toString()),
+          direction: DismissDirection.startToEnd,
+          confirmDismiss: (direction) async => false,
+          background: Container(
+            color: colors.primaryContainer,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Icon(Icons.check, color: colors.onPrimaryContainer),
+              ),
+            ),
+          ),
+          child: EpisodeItem(state.episodes[index]),
+        ),
         itemCount: state.entities.length,
       ),
     );
