@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:ricktastic/src/entity/character.dart';
-
 import 'package:http/http.dart';
 
 class RickApiService {

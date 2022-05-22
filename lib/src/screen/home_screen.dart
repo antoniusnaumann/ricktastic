@@ -1,10 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:ricktastic/src/bloc/characters_cubit.dart';
 import 'package:ricktastic/src/bloc/episodes_cubit.dart';
 import 'package:ricktastic/src/layout/adaptive_app_bar.dart';
 import 'package:ricktastic/src/view/character_card.dart';
 import 'package:ricktastic/src/view/episode_item.dart';
+import 'package:ricktastic/src/view/slidable_watched_action.dart';
 
 import '../layout/rail_scaffold.dart';
 
@@ -71,26 +75,25 @@ class EpisodesContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final width = MediaQuery.of(context).size.width;
     return AdaptiveAppBar(
       title: title,
       body: ListView.builder(
-        itemBuilder: (context, index) => Dismissible(
-          key: Key(index.toString()),
-          direction: DismissDirection.startToEnd,
-          confirmDismiss: (direction) async => false,
-          background: Container(
-            color: colors.primaryContainer,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Icon(Icons.check, color: colors.onPrimaryContainer),
-              ),
+        itemBuilder: (context, index) {
+          return Slidable(
+            key: Key(index.toString()),
+            startActionPane: ActionPane(
+              // TODO: Replace with proper dismissable which activates on swipe
+              // dismissible: SlidableWatchedAction(),
+              extentRatio: min(1, 180 / width),
+              motion: const BehindMotion(),
+              children: const [
+                SlidableWatchedAction(),
+              ],
             ),
-          ),
-          child: EpisodeItem(state.episodes[index]),
-        ),
+            child: EpisodeItem(state.episodes[index]),
+          );
+        },
         itemCount: state.entities.length,
       ),
     );

@@ -41,6 +41,7 @@ dependencies:
   json_annotation: ^4.5.0
   shimmer: ^2.0.0
   bloc_test: ^9.0.3
+  flutter_slidable: ^1.2.1
 
 dev_dependencies:
   flutter_test:
