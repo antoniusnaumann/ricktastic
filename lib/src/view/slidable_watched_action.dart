@@ -9,23 +9,24 @@ class SlidableWatchedAction extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     return CustomSlidableAction(
       onPressed: (context) => { },
-      backgroundColor: colors.secondaryContainer,
+      backgroundColor: Colors.transparent,
       foregroundColor: colors.onSecondaryContainer,
       child: Container(
-        color: colors.secondaryContainer,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: colors.secondaryContainer,
+          borderRadius: BorderRadius.circular(8),
+        ),
         alignment: Alignment.center,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 4),
-                child: Icon(Icons.check_rounded, color: colors.onSecondaryContainer),
-              ),
-              const Text('Watched'),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: Icon(Icons.check_rounded, color: colors.onSecondaryContainer),
+            ),
+            const Text('Watched', overflow: TextOverflow.fade, maxLines: 1,),
+          ],
         ),
       ),
     );

@@ -86,7 +86,7 @@ class EpisodesContent extends StatelessWidget {
               // TODO: Replace with proper dismissable which activates on swipe
               // dismissible: SlidableWatchedAction(),
               extentRatio: min(1, 180 / width),
-              motion: const BehindMotion(),
+              motion: const StretchMotion(),
               children: const [
                 SlidableWatchedAction(),
               ],
