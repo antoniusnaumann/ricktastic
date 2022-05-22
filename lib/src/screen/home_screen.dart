@@ -10,7 +10,8 @@ import 'package:ricktastic/src/view/character_card.dart';
 import 'package:ricktastic/src/view/episode_item.dart';
 import 'package:ricktastic/src/view/slidable_watched_action.dart';
 
-import '../layout/rail_scaffold.dart';
+import '../layout/adaptive_navigation_scaffold.dart';
+import '../view/rail_scaffold.dart';
 
 class HomeScreen extends StatefulWidget {
   final String title;
@@ -22,16 +23,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var _tab = 0;
   static const items = [
-      Item(label: 'Characters', icon: Icons.person),
-      Item(label: 'Episodes', icon: Icons.tv),
+      AdaptiveNavigationItem(label: 'Characters', icon: Icons.person),
+      AdaptiveNavigationItem(label: 'Episodes', icon: Icons.tv),
     ];
 
   @override
   Widget build(BuildContext context) {
     return RailScaffold(
       items: items,
-      breakpoint: 1200,
-      extendedBreakpoint: 1600,
+      breakpoint: 800,
+      extendedBreakpoint: 1400,
       currentIndex: _tab,
       onTap: (index) => setState(() {
         _tab = index;
