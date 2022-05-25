@@ -13,8 +13,20 @@ class EpisodesCubit extends EntitiesCubit<Episode, EpisodesState> {
   String _lastWatched = ''; 
 
   @override
-  List<Episode> transform(List<Episode> old) {
-    return old.map((episode) => episode.withState(EpisodeState(watched: episode.season! < 3))).toList();
+  List<Episode> transform(List<Episode?> old) {
+    return old
+      .map((episode) => 
+        episode?.code == _lastWatched 
+        ? episode?.withState(EpisodeState(watched: true)) 
+        : episode)
+      .whereType<Episode>()
+      .toList();
+  }
+
+  void setWatched(Episode? episode) { 
+    if (episode == null) return;
+    _lastWatched = episode.code;
+    emit(state.construct(transform(state.entities)));
   }
 }
 

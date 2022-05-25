@@ -88,8 +88,8 @@ class EpisodesContent extends StatelessWidget {
               // dismissible: SlidableWatchedAction(),
               extentRatio: min(1, 5 / sqrt(width)),
               motion: const StretchMotion(),
-              children: const [
-                SlidableWatchedAction(),
+              children: [
+                SlidableWatchedAction(action: ((context) => context.read<EpisodesCubit>().setWatched(state.episodes[index]))),
               ],
             ),
             child: EpisodeItem(state.episodes[index]),

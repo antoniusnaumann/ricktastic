@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SlidableWatchedAction extends StatelessWidget {
-  const SlidableWatchedAction({Key? key}) : super(key: key);
+  final Function(BuildContext context) action;
+  const SlidableWatchedAction({Key? key, this.action = _empty}) : super(key: key);
+
+  static void _empty(BuildContext context) {}
 
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return CustomSlidableAction(
-      onPressed: (context) => { },
+      onPressed: (context) => action(context),
       backgroundColor: Colors.transparent,
       foregroundColor: colors.onSecondaryContainer,
       child: Container(
