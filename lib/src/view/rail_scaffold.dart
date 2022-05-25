@@ -1,6 +1,6 @@
+import 'package:adaptive_navigation_scaffold/adaptive_navigation_scaffold.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ricktastic/src/layout/adaptive_navigation_scaffold.dart';
 
 class RailScaffold extends StatelessWidget {
   final Widget body;

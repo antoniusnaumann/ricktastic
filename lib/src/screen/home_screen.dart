@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:adaptive_navigation_scaffold/adaptive_navigation_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -10,7 +11,6 @@ import 'package:ricktastic/src/view/character_card.dart';
 import 'package:ricktastic/src/view/episode_item.dart';
 import 'package:ricktastic/src/view/slidable_watched_action.dart';
 
-import '../layout/adaptive_navigation_scaffold.dart';
 import '../view/rail_scaffold.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return RailScaffold(
       items: items,
-      breakpoint: 800,
+      breakpoint: 1000,
       extendedBreakpoint: 1400,
       currentIndex: _tab,
       onTap: (index) => setState(() {
@@ -57,7 +57,7 @@ class CharactersContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveAppBar(
+    return PlatformAppBar(
       title: title,
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: itemWidth, childAspectRatio: 0.8),
@@ -77,7 +77,7 @@ class EpisodesContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return AdaptiveAppBar(
+    return PlatformAppBar(
       title: title,
       body: ListView.builder(
         itemBuilder: (context, index) {
@@ -86,7 +86,7 @@ class EpisodesContent extends StatelessWidget {
             startActionPane: ActionPane(
               // TODO: Replace with proper dismissable which activates on swipe
               // dismissible: SlidableWatchedAction(),
-              extentRatio: min(1, 180 / width),
+              extentRatio: min(1, 5 / sqrt(width)),
               motion: const StretchMotion(),
               children: const [
                 SlidableWatchedAction(),

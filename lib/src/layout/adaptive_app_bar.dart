@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class AdaptiveAppBar extends StatelessWidget {
+class PlatformAppBar extends StatelessWidget {
   final String title;
   final Widget body;
-  const AdaptiveAppBar({Key? key, required this.title, required this.body}) : super(key: key);
+  const PlatformAppBar({Key? key, required this.title, required this.body}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
