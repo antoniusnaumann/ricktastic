@@ -1,4 +1,5 @@
-[![Codemagic build status](https://api.codemagic.io/apps/628fe6acd441386f910cfe9c/628fe6acd441386f910cfe9b/status_badge.svg)](https://codemagic.io/apps/628fe6acd441386f910cfe9c/628fe6acd441386f910cfe9b/latest_build)
+[![Codemagic Build Status](https://api.codemagic.io/apps/628fe6acd441386f910cfe9c/628fe6acd441386f910cfe9b/status_badge.svg)](https://codemagic.io/apps/628fe6acd441386f910cfe9c/628fe6acd441386f910cfe9b/latest_build)
+[![Bitrise Build Status](https://app.bitrise.io/app/454927dcb16ded9c/status.svg?token=mn7dJ65LNCGax3ZMjRjN6w&branch=main)](https://app.bitrise.io/app/454927dcb16ded9c)
 # Ricktastic
 
 A flutter app to rate Rick & Morty episodes. This project is used to evaluate Flutter for Mobile, Desktop and Web.
