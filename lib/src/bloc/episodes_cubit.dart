@@ -15,10 +15,10 @@ class EpisodesCubit extends EntitiesCubit<Episode, EpisodesState> {
   @override
   List<Episode> transform(List<Episode?> old) {
     return old
-      .map((episode) => 
-        episode?.code == _lastWatched 
+      .map((episode) =>
+        _lastWatched >= episode?.code
         ? episode?.withState(EpisodeState(watched: true)) 
-        : episode)
+        : episode?.withState(EpisodeState(watched: false)))
       .whereType<Episode>()
       .toList();
   }
