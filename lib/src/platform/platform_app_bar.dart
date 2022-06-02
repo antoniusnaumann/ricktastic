@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+// TODO: Rename e.g. PlatformScrollableScaffold
 class PlatformAppBar extends StatelessWidget {
   final String title;
   final Widget body;

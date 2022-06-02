@@ -6,11 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:ricktastic/src/bloc/characters_cubit.dart';
 import 'package:ricktastic/src/bloc/episodes_cubit.dart';
-import 'package:ricktastic/src/layout/adaptive_app_bar.dart';
+import 'package:ricktastic/src/screen/episode_screen.dart';
 import 'package:ricktastic/src/view/character_card.dart';
 import 'package:ricktastic/src/view/episode_item.dart';
 import 'package:ricktastic/src/view/slidable_watched_action.dart';
 
+import '../platform/platform_app_bar.dart';
 import '../view/rail_scaffold.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -92,7 +93,18 @@ class EpisodesContent extends StatelessWidget {
                 SlidableWatchedAction(action: ((context) => context.read<EpisodesCubit>().setWatched(state.episodes[index]))),
               ],
             ),
-            child: EpisodeItem(state.episodes[index]),
+            child: InkWell(
+              onTap: () { 
+                final episode = state.episodes[index];
+                if(episode != null) { 
+                  Navigator.push(context,
+                    MaterialPageRoute(
+                        builder: (context) => EpisodeScreen(episode: episode)
+                  ));
+                }
+              },
+              child: EpisodeItem(state.episodes[index]),
+            )
           );
         },
         itemCount: state.entities.length,
