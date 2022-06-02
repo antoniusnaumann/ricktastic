@@ -17,7 +17,7 @@ class EpisodeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: (PlatformCheck.isApplePlatform ? 
           CupertinoNavigationBar(
-            middle: Text(episode.name),
+            middle: Text(episode.name, style: TextStyle(color: colors.onBackground)),
             border: null, 
             brightness: Theme.of(context).brightness,
             backgroundColor: colors.background.withAlpha(200),
